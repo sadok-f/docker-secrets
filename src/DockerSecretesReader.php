@@ -8,24 +8,31 @@
 class DockerSecretesReader
 {
     /**
-     * DockerSecretesReader constructor.
+     * @return string
      */
-    public function __construct()
-    {
-    }
-
     protected function getFileContent()
     {
 
+        return '';
     }
 
-    public function readAll()
+    /**
+     * @return array
+     */
+    public static function readAll()
     {
 
+        return [];
     }
 
-    public function read($secretName)
+    /**
+     * @param $secretName
+     *
+     * @return string
+     */
+    public static function read($secretName)
     {
 
+        return '';
     }
 }
