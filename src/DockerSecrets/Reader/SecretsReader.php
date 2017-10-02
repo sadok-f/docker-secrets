@@ -43,6 +43,7 @@ class SecretsReader implements ReaderInterface
     final public function readAll()
     {
         $secretDir = $this->getSecretsDir();
+
         if (!is_dir($secretDir)) {
             throw new SecretDirNotExistException('Secret Dir not exist '.$secretDir);
         }
@@ -50,7 +51,7 @@ class SecretsReader implements ReaderInterface
         $secretFiles = array_diff(scandir($secretDir), ['..', '.']);
         $allSecrets = [];
         foreach ($secretFiles as $secretFile) {
-            $allSecrets[$secretFile] = $this->getSecretContent($secretPath = $secretDir.'/'.$secretFile);
+            $allSecrets[$secretFile] = $this->getSecretContent($secretDir.'/'.$secretFile);
         }
 
         return $allSecrets;

@@ -1,5 +1,8 @@
 language: php
 
+env:
+  CODECLIMATE_REPO_TOKEN: 32dd1ec6c03073c40ca5794a8a8f1cd5ad4a7822e112bd4d3469344c685708cc
+
 php:
   - 5.4
   - 5.5
