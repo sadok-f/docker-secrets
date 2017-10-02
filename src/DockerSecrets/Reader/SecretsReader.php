@@ -9,7 +9,7 @@ use DockerSecrets\Exception\SecretFileNotFoundException;
  * Class SecretsReader
  * @package DockerSecrets\Reader
  */
-class SecretsReader implements ReaderInterface
+class SecretsReader
 {
     protected $secretsDir;
 
