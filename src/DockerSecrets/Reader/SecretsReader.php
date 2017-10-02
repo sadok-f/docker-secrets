@@ -3,7 +3,6 @@
 namespace DockerSecrets\Reader;
 
 use DockerSecrets\Exception\SecretDirNotExistException;
-use DockerSecrets\Exception\EmptyNameException;
 use DockerSecrets\Exception\SecretFileNotFoundException;
 
 /**
@@ -12,13 +11,23 @@ use DockerSecrets\Exception\SecretFileNotFoundException;
  */
 class SecretsReader implements ReaderInterface
 {
-    const SECRETS_DIR = '/run/secrets';
+    protected $secretsDir;
+
+    /**
+     * SecretsReader constructor.
+     *
+     * @param $secretsDir
+     */
+    public function __construct($secretsDir = '/run/secrets')
+    {
+        $this->secretsDir = $secretsDir;
+    }
 
     /**
      * @param $secretFile
      *
      * @return string
-     * @throws Exception
+     * @throws SecretFileNotFoundException
      */
     protected function getSecretContent($secretFile)
     {
@@ -34,11 +43,12 @@ class SecretsReader implements ReaderInterface
      */
     protected function getSecretsDir()
     {
-        return self::SECRETS_DIR;
+        return $this->secretsDir;
     }
 
     /**
      * @return array
+     * @throws SecretDirNotExistException
      */
     final public function readAll()
     {

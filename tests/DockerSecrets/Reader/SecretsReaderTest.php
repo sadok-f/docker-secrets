@@ -8,7 +8,7 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
 {
 
     /** @var  SecretsReader */
-    protected $secretReaderMock;
+    protected $secretReader;
 
     /** @var array */
     protected $testContent = [
@@ -21,11 +21,7 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->secretReaderMock = $this->getMock('DockerSecrets\Reader\SecretsReader', ['getSecretsDir']);
-        $this->secretReaderMock
-            ->expects($this->any())
-            ->method('getSecretsDir')
-            ->willReturn(__DIR__.'/../../test-secrets-dir');
+        $this->secretReader = new SecretsReader(__DIR__.'/../../test-secrets-dir');
     }
 
     /**
@@ -33,7 +29,7 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testReadAll()
     {
-        $allSecrets = $this->secretReaderMock->readAll();
+        $allSecrets = $this->secretReader->readAll();
         $this->assertNotEmpty($allSecrets);
         $this->assertCount(2, $allSecrets);
         $this->assertEquals($this->testContent, $allSecrets);
@@ -44,11 +40,11 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testReadMultiSecrets()
     {
-        $myTestSecret = $this->secretReaderMock->read('my_secret_data_1');
+        $myTestSecret = $this->secretReader->read('my_secret_data_1');
         $this->assertNotEmpty($myTestSecret);
         $this->assertEquals($myTestSecret, $this->testContent['my_secret_data_1']);
 
-        $myTestSecret2 = $this->secretReaderMock->read('my_secret_data_2');
+        $myTestSecret2 = $this->secretReader->read('my_secret_data_2');
         $this->assertNotEmpty($myTestSecret2);
         $this->assertEquals($myTestSecret2, $this->testContent['my_secret_data_2']);
     }
@@ -58,7 +54,7 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testReadOneSecret()
     {
-        $myTestSecret = $this->secretReaderMock->read('my_secret_data_1');
+        $myTestSecret = $this->secretReader->read('my_secret_data_1');
         $this->assertNotEmpty($myTestSecret);
         $this->assertEquals($myTestSecret, $this->testContent['my_secret_data_1']);
     }
@@ -66,16 +62,16 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Secret not exist Exception
-     * @expectedException     DockerSecrets\Exception\SecretFileNotFoundException
+     * @expectedException    \DockerSecrets\Exception\SecretFileNotFoundException
      */
     public function testSecretNotExistException()
     {
-        $myTestSecret = $this->secretReaderMock->read('not_existing_secret');
+        $this->secretReader->read('not_existing_secret');
     }
 
     /**
      * Test Secret Dir Not Exist Exception
-     * @expectedException     DockerSecrets\Exception\SecretDirNotExistException
+     * @expectedException     \DockerSecrets\Exception\SecretDirNotExistException
      */
     public function testSecretDirNotExistException()
     {

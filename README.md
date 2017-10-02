@@ -5,7 +5,7 @@
 
 # Docker Secrets
 
-A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swarm/secrets/) from a Swarm cluster
+A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swarm/secrets/) from a Swarm cluster.
 
 # Installation
 
@@ -37,6 +37,21 @@ $dockerSecretes = new DockerSecrets\Reader\SecretsReader();
 $dockerSecretes->read('my_secret');
 ```
 
+### Custom Location
+The default location for secrets folder is to `/run/secrets/` in Linux containers.
+if you're using Docker 17.06 and higher with custom location you can use the library like this example:
+
+```php
+$dockerSecretes = new DockerSecrets\Reader\SecretsReader('/var/myCustomLocation');
+$dockerSecretes->read('my_secret');
+```
+
+### Read secrets in Windows containers
+
+```php
+$dockerSecretes = new DockerSecrets\Reader\SecretsReader('C:\ProgramData\Docker\secrets');
+$dockerSecretes->read('my_secret');
+```
 
 # PHPUnit
 
