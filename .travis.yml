@@ -14,7 +14,12 @@ install:
   - composer install --prefer-dist
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+
+after_success:
+  - CODECLIMATE_REPO_TOKEN=32dd1ec6c03073c40ca5794a8a8f1cd5ad4a7822e112bd4d3469344c685708cc ./vendor/bin/test-reporter
+
 
 notifications:
   email:
