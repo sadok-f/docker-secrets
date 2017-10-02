@@ -7,6 +7,12 @@
 
 A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swarm/secrets/) from a Swarm cluster
 
+# Installation
+
+```bash
+ composer require sadok-f/docker-secrets
+```
+
 # Usage
 
 ### Read All
@@ -14,6 +20,14 @@ A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swa
 ```php
 $dockerSecretes = new DockerSecrets\Reader\SecretsReader();
 $dockerSecretes->readAll();
+```
+return:
+```
+Array
+(
+    [my_secret_data_1] => testSecretDataContent1
+    [my_secret_data_2] => testSecretDataContent2
+)
 ```
 
 ### Read a single secret
