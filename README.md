@@ -9,15 +9,20 @@ A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swa
 ### Read All
 
 ```php
-$dockerSecretesReader = new DockerSecrets\Reader\DockerSecretesReader();
-$dockerSecretesReader->readAll();
+$dockerSecretes = new DockerSecrets\Reader\SecretsReader();
+$dockerSecretes->readAll();
 ```
 
 ### Read a single secret
 
 ```php
-$dockerSecretesReader = new DockerSecrets\Reader\DockerSecretesReader();
-$dockerSecretesReader->read('my_secret');
+$dockerSecretes = new DockerSecrets\Reader\SecretsReader();
+$dockerSecretes->read('my_secret');
 ```
 
 
+# PHPUnit
+
+```bash
+./vendor/bin/phpunit
+```
