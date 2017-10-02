@@ -24,5 +24,15 @@
     },
     "require-dev": {
         "phpunit/phpunit": "4.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DockerSecrets\\": "src\\DockerSecrets"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }
