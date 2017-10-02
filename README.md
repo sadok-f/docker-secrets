@@ -18,8 +18,8 @@ A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swa
 ### Read All
 
 ```php
-$dockerSecretes = new DockerSecrets\Reader\SecretsReader();
-$dockerSecretes->readAll();
+$dockerSecrets = new DockerSecrets\Reader\SecretsReader();
+$dockerSecrets->readAll();
 ```
 return:
 ```
@@ -33,8 +33,8 @@ Array
 ### Read a single secret
 
 ```php
-$dockerSecretes = new DockerSecrets\Reader\SecretsReader();
-$dockerSecretes->read('my_secret');
+$dockerSecrets = new DockerSecrets\Reader\SecretsReader();
+$dockerSecrets->read('my_secret');
 ```
 
 ### Custom Location
@@ -42,15 +42,15 @@ The default location for secrets folder is to `/run/secrets/` in Linux container
 if you're using Docker 17.06 and higher with custom location you can use the library like this example:
 
 ```php
-$dockerSecretes = new DockerSecrets\Reader\SecretsReader('/var/myCustomLocation');
-$dockerSecretes->read('my_secret');
+$dockerSecrets = new DockerSecrets\Reader\SecretsReader('/var/myCustomLocation');
+$dockerSecrets->read('my_secret');
 ```
 
 ### Read secrets in Windows containers
 
 ```php
-$dockerSecretes = new DockerSecrets\Reader\SecretsReader('C:\ProgramData\Docker\secrets');
-$dockerSecretes->read('my_secret');
+$dockerSecrets = new DockerSecrets\Reader\SecretsReader('C:\ProgramData\Docker\secrets');
+$dockerSecrets->read('my_secret');
 ```
 
 # PHPUnit
