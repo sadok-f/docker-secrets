@@ -11,7 +11,11 @@ use DockerSecrets\Exception\SecretFileNotFoundException;
  */
 class SecretsReader
 {
+    /** @var string */
     protected $secretsDir;
+
+    /** @var  array */
+    protected $secrets;
 
     /**
      * SecretsReader constructor.
@@ -21,6 +25,7 @@ class SecretsReader
     public function __construct($secretsDir = '/run/secrets')
     {
         $this->secretsDir = $secretsDir;
+        $this->secrets = $this->readAll();
     }
 
     /**
@@ -50,7 +55,7 @@ class SecretsReader
      * @return array
      * @throws SecretDirNotExistException
      */
-    final public function readAll()
+    protected function readAll()
     {
         $secretDir = $this->getSecretsDir();
 
@@ -71,11 +76,14 @@ class SecretsReader
      * @param $secretName
      *
      * @return string
+     * @throws SecretFileNotFoundException
      */
     final public function read($secretName)
     {
-        $secretPath = $this->getSecretsDir().'/'.$secretName;
+        if (empty($this->secrets[$secretName])) {
+            throw new SecretFileNotFoundException('Secret file do not exist: '.$secretName);
+        }
 
-        return $this->getSecretContent($secretPath);
+        return $this->secrets[$secretName];
     }
 }
