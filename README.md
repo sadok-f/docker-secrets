@@ -19,7 +19,7 @@ A simple PHP library to read [docker secrets](https://docs.docker.com/engine/swa
 
 ```php
 $dockerSecrets = new DockerSecrets\Reader\SecretsReader();
-$dockerSecrets->readAll();
+$allSecrets = $dockerSecrets->readAll();
 ```
 return:
 ```

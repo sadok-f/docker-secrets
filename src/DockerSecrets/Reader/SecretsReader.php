@@ -25,7 +25,28 @@ class SecretsReader
     public function __construct($secretsDir = '/run/secrets')
     {
         $this->secretsDir = $secretsDir;
-        $this->secrets = $this->readAll();
+        $this->secrets = $this->init();
+    }
+
+    /**
+     * @return array
+     * @throws SecretDirNotExistException
+     */
+    protected function init()
+    {
+        $secretDir = $this->getSecretsDir();
+
+        if (!is_dir($secretDir)) {
+            throw new SecretDirNotExistException('Secret Dir not exist '.$secretDir);
+        }
+
+        $secretFiles = array_diff(scandir($secretDir), ['..', '.']);
+        $allSecrets = [];
+        foreach ($secretFiles as $secretFile) {
+            $allSecrets[$secretFile] = $this->getSecretContent($secretDir.'/'.$secretFile);
+        }
+
+        return $allSecrets;
     }
 
     /**
@@ -55,21 +76,9 @@ class SecretsReader
      * @return array
      * @throws SecretDirNotExistException
      */
-    protected function readAll()
+    final public function readAll()
     {
-        $secretDir = $this->getSecretsDir();
-
-        if (!is_dir($secretDir)) {
-            throw new SecretDirNotExistException('Secret Dir not exist '.$secretDir);
-        }
-
-        $secretFiles = array_diff(scandir($secretDir), ['..', '.']);
-        $allSecrets = [];
-        foreach ($secretFiles as $secretFile) {
-            $allSecrets[$secretFile] = $this->getSecretContent($secretDir.'/'.$secretFile);
-        }
-
-        return $allSecrets;
+        return $this->secrets;
     }
 
     /**
