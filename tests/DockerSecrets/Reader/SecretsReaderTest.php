@@ -25,6 +25,17 @@ class SecretsReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test ReadAll method
+     */
+    public function testReadAll()
+    {
+        $allSecrets = $this->secretReader->readAll();
+        $this->assertNotEmpty($allSecrets);
+        $this->assertCount(2, $allSecrets);
+        $this->assertEquals($this->testContent, $allSecrets);
+    }
+
+    /**
      * Test Read one secret method
      */
     public function testReadMultiSecrets()

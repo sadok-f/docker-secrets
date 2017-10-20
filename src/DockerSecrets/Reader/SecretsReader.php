@@ -55,7 +55,7 @@ class SecretsReader
      * @return array
      * @throws SecretDirNotExistException
      */
-    protected function readAll()
+    final public function readAll()
     {
         $secretDir = $this->getSecretsDir();
 
